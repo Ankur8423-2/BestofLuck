@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Best of Luck, Juhiii</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="corner-gif corner-gif-left" aria-hidden="true">
+      <iframe
+        src="https://tenor.com/embed/15018289075129126761"
+        title="Dancing puppy"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="corner-gif corner-gif-right" aria-hidden="true">
+      <iframe
+        src="https://tenor.com/embed/15018289075129126761"
+        title="Dancing puppy"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <main class="stage" aria-label="Best of luck wish for Juhiii">
+      <section class="sky" aria-hidden="true">
+        <span class="star star-a"></span>
+        <span class="star star-b"></span>
+        <span class="star star-c"></span>
+        <span class="star star-d"></span>
+        <span class="orbit orbit-one"></span>
+        <span class="orbit orbit-two"></span>
+      </section>
+
+      <section class="hero">
+        <p class="kicker">A tiny pocket universe of good vibes</p>
+        <h1>Best of luck, <span>Juhiii</span></h1>
+        <p class="message">
+          May every question feel familiar, every answer arrive right on time,
+          and your confidence walk in before you do.
+        </p>
+
+        <div class="controls" aria-label="Interactive wishes">
+          <button class="primary-action" id="launchWish" type="button">
+            Launch luck
+          </button>
+          <button class="ghost-action" id="shuffleWish" type="button">
+            New wish
+          </button>
+        </div>
+
+        <div class="fortune" id="fortune" aria-live="polite">
+          Tap a charm below. One of them is hiding an extra wish.
+        </div>
+      </section>
+
+      <section class="charms" aria-label="Lucky charms">
+        <button class="charm" type="button" data-wish="You have prepared enough. Now let your calm do the talking.">
+          <span>01</span>
+          Focus
+        </button>
+        <button class="charm" type="button" data-wish="Take one breath, trust your mind, and make the page yours.">
+          <span>02</span>
+          Calm
+        </button>
+        <button class="charm" type="button" data-wish="The result is waiting to meet the version of you that did not give up.">
+          <span>03</span>
+          Spark
+        </button>
+      </section>
+
+      <section class="wish-board" aria-label="Good luck meter">
+        <div class="meter">
+          <div class="meter-fill" id="meterFill"></div>
+        </div>
+        <p id="meterText">Luck charged: 0%</p>
+      </section>
+    </main>
+
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <script src="script.js"></script>
+  </body>
+</html>
