@@ -1,13 +1,14 @@
-const wishes = [
-  "Best of luck, Juhiii. You are going to do beautifully.",
-  "Your hard work has already started speaking for you.",
-  "Walk in with courage. Walk out with a proud smile.",
-  "Today is ready for you, Juhiii. Go make it yours.",
-  "Small breath. Bright mind. Full power."
+const studyTips = [
+  "Biology: revise NCERT diagrams and examples before solving MCQs.",
+  "Physics: practice 45-minute mixed sets to improve speed and stamina.",
+  "Chemistry: keep one-page reaction map for daily 20-minute recall.",
+  "After every mock, write top 5 mistakes and revisit them in 24 hours.",
+  "Use Pomodoro blocks: 50 minutes study + 10 minutes recovery.",
+  "Bahuuutt accha karoge aap, no worries."
 ];
 
-const notes = ["You got this", "Deep breath", "Shine on", "Full power", "Calm wins", "Juhiii magic"];
-const colors = ["#ff6f61", "#ffc857", "#42d6a4", "#4267ff", "#ff9bb3"];
+const notes = ["Revise now", "Solve MCQs", "Trust prep", "Stay calm", "Finish strong"];
+const colors = ["#ff7f32", "#39d8b4", "#9be15d", "#4bb4ff", "#ffd166"];
 
 const canvas = document.querySelector("#confettiCanvas");
 const ctx = canvas.getContext("2d");
@@ -17,9 +18,10 @@ const meterText = document.querySelector("#meterText");
 const launchWish = document.querySelector("#launchWish");
 const shuffleWish = document.querySelector("#shuffleWish");
 const charms = document.querySelectorAll(".charm");
+const specialWish = "Bahuuutt accha karoge aap, no worries.";
 
 let confetti = [];
-let luck = 0;
+let focus = 0;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth * window.devicePixelRatio;
@@ -31,38 +33,42 @@ function randomBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-function setWish(text) {
+function pickRandom(items) {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+function setTip(text) {
   fortune.textContent = text;
   fortune.animate(
     [
-      { transform: "scale(0.98)", opacity: 0.65 },
-      { transform: "scale(1)", opacity: 1 }
+      { transform: "translateY(4px)", opacity: 0.7 },
+      { transform: "translateY(0)", opacity: 1 }
     ],
     { duration: 260, easing: "ease-out" }
   );
 }
 
-function chargeLuck(amount) {
-  luck = Math.min(100, luck + amount);
-  meterFill.style.width = `${luck}%`;
-  meterText.textContent = `Luck charged: ${luck}%`;
+function chargeFocus(amount) {
+  focus = Math.min(100, focus + amount);
+  meterFill.style.width = `${focus}%`;
+  meterText.textContent = `Luck charged: ${focus}%`;
 
-  if (luck === 100) {
-    setWish("Luck fully charged for Juhiii. Go win the moment.");
+  if (focus === 100) {
+    setTip("Focus maxed out. Attempt a full-length NEET mock now.");
   }
 }
 
-function burstConfetti(count = 120) {
+function burstConfetti(count = 90) {
   for (let i = 0; i < count; i += 1) {
     confetti.push({
       x: randomBetween(0, window.innerWidth),
       y: randomBetween(-40, window.innerHeight * 0.45),
-      size: randomBetween(5, 10),
+      size: randomBetween(4, 9),
       color: colors[Math.floor(Math.random() * colors.length)],
-      speed: randomBetween(1.5, 4.5),
-      drift: randomBetween(-1.4, 1.4),
+      speed: randomBetween(1.5, 4),
+      drift: randomBetween(-1.2, 1.2),
       spin: randomBetween(0, Math.PI),
-      rotation: randomBetween(-0.18, 0.18)
+      rotation: randomBetween(-0.16, 0.16)
     });
   }
 }
@@ -70,8 +76,8 @@ function burstConfetti(count = 120) {
 function createFloatingNote() {
   const note = document.createElement("span");
   note.className = "floating-note";
-  note.textContent = notes[Math.floor(Math.random() * notes.length)];
-  note.style.setProperty("--x", `${randomBetween(8, 82)}vw`);
+  note.textContent = pickRandom(notes);
+  note.style.setProperty("--x", `${randomBetween(10, 84)}vw`);
   document.body.append(note);
   note.addEventListener("animationend", () => note.remove());
 }
@@ -97,38 +103,28 @@ function animateConfetti() {
 }
 
 launchWish.addEventListener("click", () => {
-  setWish("Best of luck, Juhiii. The universe has officially been notified.");
-  burstConfetti();
-  chargeLuck(34);
+  setTip(specialWish);
+  chargeFocus(24);
+  burstConfetti(90);
 
   for (let i = 0; i < 5; i += 1) {
-    setTimeout(createFloatingNote, i * 180);
+    setTimeout(createFloatingNote, i * 150);
   }
 });
 
 shuffleWish.addEventListener("click", () => {
-  setWish(wishes[Math.floor(Math.random() * wishes.length)]);
-  burstConfetti(45);
-  chargeLuck(17);
+  setTip(pickRandom(studyTips));
+  chargeFocus(14);
 });
 
 charms.forEach((charm) => {
   charm.addEventListener("click", () => {
-    setWish(charm.dataset.wish);
-    burstConfetti(70);
-    chargeLuck(23);
-    charm.animate(
-      [
-        { transform: "translateY(-3px) rotate(-1deg)" },
-        { transform: "translateY(-3px) rotate(1deg)" },
-        { transform: "translateY(-3px) rotate(0deg)" }
-      ],
-      { duration: 360, easing: "ease-in-out" }
-    );
+    setTip(charm.dataset.wish);
+    chargeFocus(18);
+    burstConfetti(45);
   });
 });
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 animateConfetti();
-setTimeout(() => burstConfetti(60), 500);
